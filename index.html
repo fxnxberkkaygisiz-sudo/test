@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATASOY Danışmanlık - Portföy Değerlendirmesi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50">
+    <div class="max-w-7xl mx-auto py-6 px-4">
+        <!-- Enhanced Header -->
+        <div class="gradient-bg rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/20 to-transparent"></div>
+                <div class="absolute -top-20 -right-20 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-20 -left-20 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+            </div>
+            
+            <div class="relative z-10">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+                    <div class="mb-6 lg:mb-0">
+                        <h1 class="text-5xl font-black mb-2 tracking-tight">
+                            ATASOY DANIŞMANLIK
+                        </h1>
+                        <p class="text-xl text-slate-300 mb-4">Profesyonel Yatırım Danışmanlığı</p>
+                        <div class="flex items-center space-x-4">
+                            <div class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm font-semibold border border-green-400/30">
+                                Aktif Portföy
+                            </div>
+                            <div class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm font-semibold border border-blue-400/30">
+                                Haftalık Analiz
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-right">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                            <div class="text-sm text-slate-300 mb-2">Rapor Dönemi</div>
+                            <div class="text-2xl font-bold mb-1">21-25 Ağustos 2025</div>
+                            <div class="text-sm text-slate-300">5 İş Günü</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weekly Performance Summary -->
+                <!-- <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                        <div class="text-sm text-slate-300 mb-1">Pazartesi</div>
+                        <div class="text-2xl font-bold text-green-400">+₺28,450</div>
+                        <div class="text-xs text-green-300">+0.12%</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                        <div class="text-sm text-slate-300 mb-1">Salı</div>
+                        <div class="text-2xl font-bold text-green-400">+₺41,230</div>
+                        <div class="text-xs text-green-300">+0.17%</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                        <div class="text-sm text-slate-300 mb-1">Çarşamba</div>
+                        <div class="text-2xl font-bold text-green-400">+₺35,680</div>
+                        <div class="text-xs text-green-300">+0.14%</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
+                        <div class="text-sm text-slate-300 mb-1">Perşembe</div>
+                        <div class="text-2xl font-bold text-green-400">+₺52,140</div>
+                        <div class="text-xs text-green-300">+0.20%</div>
+                    </div>
+                </div> -->
+
+                <!-- Weekly Strategy Info -->
+                <div class="mt-6 bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                    <h3 class="text-lg font-semibold mb-3">Bu Haftaki Strateji & Yaklaşım</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-300">
+                        <div>
+                            <div class="font-medium text-white mb-2"> Portföy Yönetim Stratejisi</div>
+                            <p>Diversifikasyon prensibi ile 50 farklı hissede pozisyon alınarak risk dağıtımı sağlandı. Büyük hacimli pozisyonlar (SASA, PEKGY) portföyün %68'ini oluşturuyor.</p>
+                        </div>
+                        <div>
+                            <div class="font-medium text-white mb-2">Performans Hedefleri</div>
+                            <p>Haftalık %8.85 getiri ile yıllık %460 getiri hedefini aştık. Risk-getiri dengesi optimize edilerek sürdürülebilir büyüme odaklı yaklaşım benimsenmiştir.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategy Explanation Panel -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-200 shadow-sm p-6 mb-8">
+            <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Haftalık Değerlendirme Metodolojisi</h3>
+                    <p class="text-slate-700 mb-4">ATASOY Danışmanlık olarak, portföy performansını her iş gününde (Pazartesi-Cuma) yakından takip ediyor ve haftalık bazda değerlendirme sunuyoruz.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div class="bg-white rounded-lg p-4 border border-blue-100">
+                            <div class="font-semibold text-blue-900 mb-2"> Günlük Takip</div>
+                            <div class="text-slate-600">Her işlem gününde piyasa kapanışında portföy değeri hesaplanır ve kar/zarar analizi yapılır.</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 border border-blue-100">
+                            <div class="font-semibold text-blue-900 mb-2"> Risk Yönetimi</div>
+                            <div class="text-slate-600">Çeşitlendirme ile sistematik risk azaltılır. Maksimum %5 kayıp durumunda pozisyon gözden geçirilir.</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 border border-blue-100">
+                            <div class="font-semibold text-blue-900 mb-2"> Performans Hedefi</div>
+                            <div class="text-slate-600">Yıllık %25+ getiri hedefiyle sürdürülebilir ve istikrarlı büyüme stratejisi uygulanır.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Metrics Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                        </svg>
+                    </div>
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Portföy Değeri</div>
+                </div>
+                <div class="text-3xl font-bold text-slate-900 mb-1">₺26.12M</div>
+                <div class="text-sm text-slate-600">Cuma kapanış değeri</div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-2 bg-purple-100 rounded-lg">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                        </svg>
+                    </div>
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Başlangıç Sermayesi</div>
+                </div>
+                <div class="text-3xl font-bold text-slate-900 mb-1">₺23.99M</div>
+                <div class="text-sm text-slate-600">Hafta başı yatırım tutarı</div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-2 bg-green-100 rounded-lg">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Haftalık Net Kar</div>
+                </div>
+                <div id="test" class="text-3xl font-bold text-green-600 mb-1">₺2.12M</div>
+                <div class="text-sm text-green-600 font-medium">+8.85% haftalık getiri</div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-6 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-2 bg-orange-100 rounded-lg">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Aktif Pozisyonlar</div>
+                </div>
+                <div class="text-3xl font-bold text-slate-900 mb-1">50</div>
+                <div class="text-sm text-slate-600">Diversifiye portföy</div>
+            </div>
+        </div>
+
+        <!-- Daily Performance Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <!-- Weekly P&L Chart -->
+            <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200 shadow-lg p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-xl font-semibold text-slate-900">Haftalık Günlük Performans (21-25 Ağustos)</h3>
+                    <div class="text-sm text-slate-500 bg-slate-100 px-3 py-1 rounded-full">5 İş Günü</div>
+                </div>
+                <div class="relative h-80">
+                    <canvas id="weeklyPnLChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Portfolio Value Trend -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-slate-900 mb-6">Kümülatif Portföy Değeri</h3>
+                <div class="relative h-80">
+                    <canvas id="portfolioValueChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Original Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <!-- Portfolio Distribution Chart -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-slate-900 mb-6">Portföy Ağırlık Dağılımı</h3>
+                <div class="relative h-80">
+                    <canvas id="portfolioChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Performance Analysis Chart -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-6">
+                <h3 class="text-xl font-semibold text-slate-900 mb-6">Getiri Performans Analizi</h3>
+                <div class="relative h-80">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Performance Analysis Section -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-semibold text-slate-900 mb-8 pb-4 border-b border-slate-200">
+                Detaylı Performans Analizi
+            </h2>
+
+            <!-- Performance Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-gradient-to-r from-green-50 to-green-100 rounded-xl p-6 border border-green-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-sm font-semibold text-green-800">Kazandıran Pozisyonlar</div>
+                        <div class="text-2xl font-bold text-green-600">47</div>
+                    </div>
+                    <div class="text-xs text-green-700">Toplam 50 pozisyonun 47'si karlı (%94)</div>
+                </div>
+
+                <div class="bg-gradient-to-r from-red-50 to-red-100 rounded-xl p-6 border border-red-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-sm font-semibold text-red-800">Zarar Eden Pozisyonlar</div>
+                        <div class="text-2xl font-bold text-red-600">3</div>
+                    </div>
+                    <div class="text-xs text-red-700">Minimal zarar, kontrollü risk yönetimi</div>
+                </div>
+
+                <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="text-sm font-semibold text-blue-800">Ortalama Pozisyon Getirisi</div>
+                        <div class="text-2xl font-bold text-blue-600">8.42%</div>
+                    </div>
+                    <div class="text-xs text-blue-700">Haftalık bazda pozisyon ortalaması</div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Top Performers -->
+                <div>
+                    <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center">
+                        <span class="w-3 h-3 bg-green-500 rounded-full mr-2"></span>
+                        En Yüksek Performans (Haftalık)
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-3 border-b border-slate-100 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">TUCLK</div>
+                                <div class="text-sm text-slate-600">Tuğçelik</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+10.00%</div>
+                                <div class="text-sm text-slate-600">₺27,904</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-slate-100 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">TURGG</div>
+                                <div class="text-sm text-slate-600">Türk Gıda</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+10.00%</div>
+                                <div class="text-sm text-slate-600">₺5,508</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-slate-100 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">QNBFK</div>
+                                <div class="text-sm text-slate-600">QNB Finansbank</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+9.99%</div>
+                                <div class="text-sm text-slate-600">₺1,449</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-slate-100 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">MMCAS</div>
+                                <div class="text-sm text-slate-600">MMC Sanayi</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+9.98%</div>
+                                <div class="text-sm text-slate-600">₺1,043</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">VANGD</div>
+                                <div class="text-sm text-slate-600">Vanguard</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+9.95%</div>
+                                <div class="text-sm text-slate-600">₺1,986</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Large Positions -->
+                <div>
+                    <h3 class="text-lg font-semibold text-slate-700 mb-4 flex items-center">
+                        <span class="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>
+                        Büyük Hacimli Yatırımlar
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center py-3 border-b border-slate-100 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">SASA</div>
+                                <div class="text-sm text-slate-600">Sasa Polyester</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+9.89%</div>
+                                <div class="text-sm text-slate-600">₺1.21M</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-slate-100 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">PEKGY</div>
+                                <div class="text-sm text-slate-600">Peker Gayrimenkul</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+9.89%</div>
+                                <div class="text-sm text-slate-600">₺390K</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-slate-100 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">BIGEN</div>
+                                <div class="text-sm text-slate-600">Bilim İlaç</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+7.97%</div>
+                                <div class="text-sm text-slate-600">₺51K</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 border-b border-slate-100 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">TKFEN</div>
+                                <div class="text-sm text-slate-600">Tekfen Holding</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+6.64%</div>
+                                <div class="text-sm text-slate-600">₺47K</div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between items-center py-3 hover:bg-slate-50 transition-colors rounded px-2">
+                            <div>
+                                <div class="font-semibold text-slate-900">TATEN</div>
+                                <div class="text-sm text-slate-600">TAT Gıda</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="font-semibold text-green-600">+6.93%</div>
+                                <div class="text-sm text-slate-600">₺49K</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Table -->
+            <div class="mt-8">
+                <h4 class="text-lg font-semibold text-slate-900 mb-4">Haftalık Özet Tablo</h4>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-slate-50">
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                                    Haftalık Metrikler
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                                    Değer
+                                </th>
+                                <th class="px-6 py-4 text-left text-xs font-semibold text-slate-500 uppercase tracking-wide">
+                                    Haftalık Değişim
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200">
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 text-slate-900 font-medium">Hafta Başı Portföy Değeri</td>
+                                <td class="px-6 py-4 text-slate-900">₺23,998,279</td>
+                                <td class="px-6 py-4 text-slate-500">Başlangıç</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 text-slate-900 font-medium">Hafta Sonu Portföy Değeri </td>
+
+                                    <td class="px-6 py-4 text-slate-900">₺26,123,214</td>
+                                <td class="px-6 py-4 text-green-600 font-semibold">+8.85%</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 text-slate-900 font-medium">Haftalık Net Kar</td>
+                                <td class="px-6 py-4 text-green-600 font-semibold">₺2,124,935</td>
+                                <td class="px-6 py-4 text-green-600 font-semibold">+8.85%</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 text-slate-900 font-medium">Ortalama Günlük Getiri</td>
+                                <td class="px-6 py-4 text-green-600 font-semibold">₺424,987</td>
+                                <td class="px-6 py-4 text-green-600 font-semibold">+1.77%</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="px-6 py-4 text-slate-900 font-medium">Nakit Pozisyon</td>
+                                <td class="px-6 py-4 text-slate-900">₺1,721</td>
+                                <td class="px-6 py-4 text-slate-500">0.01%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Footer -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-lg p-8 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+                <span class="text-sm text-slate-500">Haftalık Rapor - 5 İş Günü Analizi</span>
+            </div>
+            <div class="text-sm text-slate-600 leading-relaxed max-w-4xl mx-auto">
+                <span class="font-semibold text-slate-900">ATASOY DANIŞMANLIK</span> - Bu rapor 21-25 Ağustos 2025 tarihleri arası 5 iş günü portföy performansını yansıtmaktadır. 
+                Geçmiş performans gelecekteki sonuçların garantisi değildir. Yatırım danışmanlığı hizmetleri 
+                SPK lisanslı uzmanlarımız tarafından sunulmaktadır. | <strong>İletişim:</strong> info@atasoy.com.tr | 
+                <strong>Telefon:</strong> +90 212 555 0123
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Professional color palette
+        const COLORS = {
+            primary: '#0f172a',
+            secondary: '#1e293b',
+            tertiary: '#334155',
+            quaternary: '#475569',
+            success: '#10b981',
+            danger: '#ef4444',
+            warning: '#f59e0b',
+            info: '#3b82f6'
+        };
+
+        // Weekly P&L data (5 business days)
+        const weeklyPnLData = {
+            labels: ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma'],
+            datasets: [{
+                label: 'Günlük Kar/Zarar (₺)',
+                data: [28450, 41230, 35680, 52140, 45230],
+                borderColor: COLORS.success,
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                pointBackgroundColor: COLORS.success,
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                fill: true,
+                tension: 0.4
+            }]
+        };
+
+        // Portfolio value trend data (cumulative)
+        const portfolioValueData = {
+            labels: ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma'],
+            datasets: [{
+                label: 'Portföy Değeri (₺M)',
+                data: [24.03, 24.07, 24.11, 24.16, 26.12],
+                borderColor: COLORS.info,
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                pointBackgroundColor: COLORS.info,
+                pointBorderColor: '#ffffff',
+                pointBorderWidth: 2,
+                pointRadius: 6,
+                pointHoverRadius: 8,
+                fill: true,
+                tension: 0.4
+            }]
+        };
+
+        // Weekly P&L Chart
+        const weeklyPnLCtx = document.getElementById('weeklyPnLChart').getContext('2d');
+        const weeklyPnLChart = new Chart(weeklyPnLCtx, {
+            type: 'line',
+            data: weeklyPnLData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#ffffff',
+                        bodyColor: '#e2e8f0',
+                        cornerRadius: 8,
+                        padding: 12,
+                        titleFont: {
+                            size: 13,
+                            weight: '600'
+                        },
+                        bodyFont: {
+                            size: 12
+                        },
+                        callbacks: {
+                            label: function(context) {
+                                return '+₺' + context.parsed.y.toLocaleString('tr-TR');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: { size: 11, weight: '500' }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#e2e8f0',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: { size: 11 },
+                            callback: function(value) {
+                                return '₺' + (value / 1000).toFixed(0) + 'K';
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Günlük Kar (₺)',
+                            color: '#475569',
+                            font: { size: 12, weight: '600' }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Portfolio Value Chart
+        const portfolioValueCtx = document.getElementById('portfolioValueChart').getContext('2d');
+        const portfolioValueChart = new Chart(portfolioValueCtx, {
+            type: 'line',
+            data: portfolioValueData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#ffffff',
+                        bodyColor: '#e2e8f0',
+                        cornerRadius: 8,
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return `₺${context.parsed.y.toFixed(2)}M`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: { size: 10 }
+                        }
+                    },
+                    y: {
+                        min: 23.8,
+                        max: 26.5,
+                        grid: {
+                            color: '#e2e8f0',
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#64748b',
+                            font: { size: 10 },
+                            callback: function(value) {
+                                return '₺' + value.toFixed(1) + 'M';
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Değer (₺M)',
+                            color: '#475569',
+                            font: { size: 11, weight: '600' }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Portfolio Distribution Chart (Doughnut)
+        const portfolioCtx = document.getElementById('portfolioChart').getContext('2d');
+        const portfolioChart = new Chart(portfolioCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['SASA', 'PEKGY', 'TKFEN', 'TATEN', 'PAPIL', 'Diğer Pozisyonlar'],
+                datasets: [{
+                    data: [51.6, 16.6, 3.0, 2.9, 2.8, 23.1],
+                    backgroundColor: [
+                        COLORS.primary,
+                        COLORS.secondary,
+                        COLORS.tertiary,
+                        COLORS.quaternary,
+                        '#64748b',
+                        '#94a3b8'
+                    ],
+                    borderWidth: 3,
+                    borderColor: '#ffffff',
+                    hoverBorderWidth: 4,
+                    hoverBorderColor: '#f8fafc'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            font: { size: 12, weight: '500' },
+                            color: '#64748b',
+                            usePointStyle: true,
+                            pointStyle: 'circle'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#ffffff',
+                        bodyColor: '#e2e8f0',
+                        cornerRadius: 8,
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return context.label + ': ' + context.parsed.toFixed(1) + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Performance Analysis Chart (Bar)
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        const performanceChart = new Chart(performanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['9-10%', '8-9%', '7-8%', '6-7%', '5-6%', '4-5%'],
+                datasets: [{
+                    label: 'Hisse Sayısı',
+                    data: [8, 15, 12, 8, 5, 2],
+                    backgroundColor: COLORS.primary,
+                    borderColor: COLORS.primary,
+                    borderWidth: 1,
+                    borderRadius: 6,
+                    borderSkipped: false,
+                    maxBarThickness: 60
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#0f172a',
+                        titleColor: '#ffffff',
+                        bodyColor: '#e2e8f0',
+                        cornerRadius: 8,
+                        padding: 12,
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' hisse bu aralıkta';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: {
+                            color: '#64748b',
+                            font: { size: 11, weight: '500' }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Haftalık Getiri Aralığı',
+                            color: '#475569',
+                            font: { size: 13, weight: '600' },
+                            padding: 10
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#e2e8f0', drawBorder: false },
+                        ticks: {
+                            color: '#64748b',
+                            font: { size: 11, weight: '500' },
+                            stepSize: 2
+                        },
+                        title: {
+                            display: true,
+                            text: 'Hisse Sayısı',
+                            color: '#475569',
+                            font: { size: 13, weight: '600' },
+                            padding: 10
+                        }
+                    }
+                }
+            }
+        });
+
+        // Enhanced animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Staggered card animations
+            const cards = document.querySelectorAll('[class*="hover:shadow"]');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 150);
+            });
+
+            // Pulse animation for key metrics
+            const pulseElements = document.querySelectorAll('.pulse');
+            pulseElements.forEach(element => {
+                setInterval(() => {
+                    element.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        element.style.transform = 'scale(1)';
+                    }, 200);
+                }, 3000);
+            });
+
+            // Weekly summary animation
+            setTimeout(() => {
+                const summaryCards = document.querySelectorAll('.gradient-bg .grid > div');
+                summaryCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.transform = 'scale(0.95)';
+                        setTimeout(() => {
+                            card.style.transform = 'scale(1)';
+                        }, 150);
+                    }, index * 200);
+                });
+            }, 1000);
+
+            // Live indicator animation
+            const liveIndicator = document.querySelector('.animate-pulse');
+            if (liveIndicator) {
+                setInterval(() => {
+                    liveIndicator.style.opacity = '0.3';
+                    setTimeout(() => {
+                        liveIndicator.style.opacity = '1';
+                    }, 500);
+                }, 2000);
+            }
+        });
+
+        // Weekly performance counter animation
+        function animateCounters() {
+            const counters = [
+                { element: document.querySelectorAll('.text-3xl')[2], target: 2124935, prefix: '₺', suffix: '' },
+                { element: document.querySelectorAll('.text-2xl')[4], target: 28450, prefix: '+₺', suffix: '' },
+                { element: document.querySelectorAll('.text-2xl')[5], target: 41230, prefix: '+₺', suffix: '' }
+            ];
+
+            counters.forEach(counter => {
+                if (counter.element) {
+                    let current = 0;
+                    const increment = counter.target / 100;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= counter.target) {
+                            current = counter.target;
+                            clearInterval(timer);
+                        }
+                        counter.element.textContent = counter.prefix + Math.floor(current).toLocaleString('tr-TR') + counter.suffix;
+                    }, 20);
+                }
+            });
+        }
+
+        // Start counter animation after page load
+        setTimeout(animateCounters, 2000);
+    </script>
+</body>
+</html>
